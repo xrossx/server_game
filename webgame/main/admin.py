@@ -3,7 +3,7 @@ from .models import *
 
 @admin.register(Resources)
 class ResourcesAdmin(admin.ModelAdmin):
-    pass
+    list_display=('Resource','Price','Efficiency')
 
 
 @admin.register(Workers)
@@ -16,7 +16,7 @@ class UsersAdmin(admin.ModelAdmin):
 
 @admin.register(Fabric)
 class FabricAdmin(admin.ModelAdmin):
-    list_display=('Name','Used_resource','Product','Time')
+    list_display=('Name','Used_resource','Product')
 
 @admin.register(Users_resources)
 class Users_resourcesAdmin(admin.ModelAdmin):

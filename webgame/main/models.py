@@ -34,9 +34,8 @@ class Users_resources(models.Model):
     
 class Fabric(models.Model):
     Name = models.CharField(verbose_name="Название", max_length=200)
-    Used_resource = models.ForeignKey('Resources', on_delete=models.DO_NOTHING)
-    Product = models.ForeignKey('Resources', on_delete=models.DO_NOTHING)
-    Time = models.DecimalField(max_digits=20, decimal_places=2, verbose_name="Время изготовления")
+    Used_resource = models.ForeignKey('Resources', related_name='used_resource', on_delete=models.DO_NOTHING)
+    Product = models.ForeignKey('Resources', related_name='product', on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return f"{self.Name}"
