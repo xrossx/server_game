@@ -5,6 +5,11 @@ class Users(models.Model):
     Level = models.DecimalField(max_digits=20, decimal_places=2, verbose_name="Уровень")
     Experience = models.DecimalField(max_digits=20, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.Name}"
+    class Meta:
+         verbose_name_plural="Пользователи"
+
 class Resources(models.Model):
     Resource = models.CharField(verbose_name="Ресурс", max_length=200)
     Price = models.IntegerField(verbose_name="Цена")
@@ -21,15 +26,33 @@ class Users_resources(models.Model):
     Sum = models.DecimalField(max_digits=20, decimal_places=2, verbose_name="Количество")
     Is_active = models.BooleanField()
     User = models.ForeignKey('Users', default='null', on_delete=models.DO_NOTHING, )
+
+    def __str__(self):
+        return f"{self.Resource}"
+    class Meta:
+         verbose_name_plural="Ресурсы пользователя"
     
 class Fabric(models.Model):
-    name = models.CharField(verbose_name="Название", max_length=200)
-    used_resource = models.ForeignKey('Resources', on_delete=models.DO_NOTHING)
-    Product = models.ManyToManyField('Resources', related_name='product')
+    Name = models.CharField(verbose_name="Название", max_length=200)
+    Used_resource = models.ForeignKey('Resources', on_delete=models.DO_NOTHING)
+    Product = models.ForeignKey('Resources', on_delete=models.DO_NOTHING)
     Time = models.DecimalField(max_digits=20, decimal_places=2, verbose_name="Время изготовления")
+
+    def __str__(self):
+        return f"{self.Name}"
+    class Meta:
+         verbose_name_plural="Фабрики"
+
+class Users_fabric(models.Model):
+    Fabric = models.ForeignKey('Fabric', on_delete=models.CASCADE)
     Level = models.IntegerField()
-    User = models.ForeignKey('Users', on_delete=models.DO_NOTHING)
-    is_active = models.BooleanField()
+    User = models.ForeignKey('Users', default='null', on_delete=models.DO_NOTHING, )
+    is_active = models.BooleanField(default='False')
+
+    def __str__(self):
+        return f"{self.Fabric}"
+    class Meta:
+         verbose_name_plural="Фабрики пользователя"
 
 class Workers(models.Model):
     id = models.AutoField(primary_key=True)
@@ -39,4 +62,6 @@ class Workers(models.Model):
     User = models.ForeignKey('Users', default='null', on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f"{self.Created_resource}/{self.Level}"
+        return f"{self.Created_resource}"
+    class Meta:
+        verbose_name_plural="Рабочие"

@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'webgame.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'webgame',
+        'NAME': 'main',
         'USER': 'admin',
         'PASSWORD': 'zqw9nd8v',
         'HOST': 'localhost',
